@@ -16,7 +16,11 @@ class PepParsePipeline:
     def open_spider(self, spider: Any) -> None:
         self.status_count = defaultdict(int)
 
-    def process_item(self, item: Dict[str, Any], spider: Any) -> Dict[str, Any]:
+    def process_item(
+            self,
+            item: Dict[str, Any],
+            spider: Any
+    ) -> Dict[str, Any]:
         self.status_count[item['status']] += 1
         return item
 

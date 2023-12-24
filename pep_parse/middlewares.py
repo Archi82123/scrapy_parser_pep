@@ -1,28 +1,47 @@
 from scrapy import signals
 from scrapy.http import Request, Response
 from scrapy.spiders import Spider
+from scrapy.crawler import Crawler
 from typing import Any, List, Optional
 
 
 class PepParseSpiderMiddleware:
 
     @classmethod
-    def from_crawler(cls, crawler) -> 'PepParseSpiderMiddleware':
+    def from_crawler(cls, crawler: Crawler) -> 'PepParseSpiderMiddleware':
         s = cls()
         crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
         return s
 
-    def process_spider_input(self, response: Response, spider: Spider) -> Optional[None]:
+    def process_spider_input(
+            self,
+            response: Response,
+            spider: Spider
+    ) -> Optional[None]:
         return None
 
-    def process_spider_output(self, response: Response, result: List[Any], spider: Spider) -> Any:
+    def process_spider_output(
+            self,
+            response: Response,
+            result: List[Any],
+            spider: Spider
+    ) -> Any:
         for i in result:
             yield i
 
-    def process_spider_exception(self, response: Response, exception: Exception, spider: Spider) -> Optional[None]:
+    def process_spider_exception(
+            self,
+            response: Response,
+            exception: Exception,
+            spider: Spider
+    ) -> Optional[None]:
         pass
 
-    def process_start_requests(self, start_requests: List[Request], spider: Spider) -> Any:
+    def process_start_requests(
+            self,
+            start_requests: List[Request],
+            spider: Spider
+    ) -> Any:
         for r in start_requests:
             yield r
 
@@ -33,18 +52,35 @@ class PepParseSpiderMiddleware:
 class PepParseDownloaderMiddleware:
 
     @classmethod
-    def from_crawler(cls, crawler) -> 'PepParseDownloaderMiddleware':
+    def from_crawler(
+            cls,
+            crawler: Crawler
+    ) -> 'PepParseDownloaderMiddleware':
         s = cls()
         crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
         return s
 
-    def process_request(self, request: Request, spider: Spider) -> Optional[None]:
+    def process_request(
+            self,
+            request: Request,
+            spider: Spider
+    ) -> Optional[None]:
         return None
 
-    def process_response(self, request: Request, response: Response, spider: Spider) -> Response:
+    def process_response(
+            self,
+            request: Request,
+            response: Response,
+            spider: Spider
+    ) -> Response:
         return response
 
-    def process_exception(self, request: Request, exception: Exception, spider: Spider) -> Optional[None]:
+    def process_exception(
+            self,
+            request: Request,
+            exception: Exception,
+            spider: Spider
+    ) -> Optional[None]:
         pass
 
     def spider_opened(self, spider: Spider) -> None:
