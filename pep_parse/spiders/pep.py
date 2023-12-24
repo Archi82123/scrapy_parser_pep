@@ -1,14 +1,15 @@
 import scrapy
 
 from pep_parse.items import PepParseItem
+from pep_parse.constants import PEPS_PYTHON_ORG_DOMAIN
 
 
 class PepSpider(scrapy.Spider):
     name = 'pep'
-    allowed_domains = ['peps.python.org']
-    start_urls = ['https://peps.python.org/']
+    allowed_domains = [PEPS_PYTHON_ORG_DOMAIN]
+    start_urls = [f'https://{PEPS_PYTHON_ORG_DOMAIN}/']
 
-    def parse(self, response):
+    def parse(self, response: scrapy.http.Response) -> PepParseItem:
         main_table = response.xpath('//section[@id="numerical-index"]')
         pep_table = main_table.xpath('.//tbody')
         rows = pep_table.xpath('.//tr')
@@ -17,7 +18,7 @@ class PepSpider(scrapy.Spider):
         for pep_link in pep_links:
             yield response.follow(pep_link, callback=self.parse_pep)
 
-    def parse_pep(self, response):
+    def parse_pep(self, response: scrapy.http.Response) -> PepParseItem:
         main_pep_section = response.xpath('//section[@id="pep-content"]')
         title = main_pep_section.xpath('.//h1//text()').get().split('–')
         status_tag = (main_pep_section
