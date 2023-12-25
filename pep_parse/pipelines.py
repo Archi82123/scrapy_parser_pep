@@ -3,8 +3,7 @@ from datetime import datetime
 from collections import defaultdict
 from typing import Any, Dict
 
-from pep_parse.settings import BASE_DIR
-from pep_parse.constants import CSV_FORMAT
+from pep_parse.settings import BASE_DIR, CSV_FORMAT
 
 
 class PepParsePipeline:

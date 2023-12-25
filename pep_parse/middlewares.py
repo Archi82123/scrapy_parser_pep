@@ -2,7 +2,9 @@ from scrapy import signals
 from scrapy.http import Request, Response
 from scrapy.spiders import Spider
 from scrapy.crawler import Crawler
-from typing import Any, List, Optional
+from typing import Any, Generator, List, Optional
+
+from pep_parse.items import PepParseItem
 
 
 class PepParseSpiderMiddleware:
@@ -23,9 +25,9 @@ class PepParseSpiderMiddleware:
     def process_spider_output(
             self,
             response: Response,
-            result: List[Any],
+            result: List[PepParseItem],
             spider: Spider
-    ) -> Any:
+    ) -> Generator[PepParseItem, None, None]:
         for i in result:
             yield i
 
@@ -41,7 +43,7 @@ class PepParseSpiderMiddleware:
             self,
             start_requests: List[Request],
             spider: Spider
-    ) -> Any:
+    ) -> Generator[Request, None, None]:
         for r in start_requests:
             yield r
 

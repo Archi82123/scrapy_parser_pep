@@ -1,6 +1,7 @@
 from pathlib import Path
 
-from pep_parse.constants import CSV_FORMAT
+CSV_FORMAT = 'csv'
+PEPS_PYTHON_ORG_DOMAIN = 'peps.python.org'
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
