@@ -2,7 +2,7 @@ from scrapy import signals
 from scrapy.http import Request, Response
 from scrapy.spiders import Spider
 from scrapy.crawler import Crawler
-from typing import Any, Generator, List, Optional
+from typing import Generator, List, Optional
 
 from pep_parse.items import PepParseItem
 
